@@ -43,14 +43,17 @@ public class Test {
 	    double guess = feedforward(inputs);
 	    double error = desired - guess;
 	    if(error<=0.1 && error>= (-0.1)){
+	    	System.out.println("found for " + desired );
 	    	for (int l = 0; l < weights.length; l++) {
 	  	      System.out.print(weights[l] + " ");
 	  	    }
-	    	return true;
+	    	System.out.println("\n" );
+	    }else{
+	    	for (int i = 0; i < weights.length; i++) {
+	    		weights[i] += c * error * inputs[i];
+	    	}
 	    }
-	    for (int i = 0; i < weights.length; i++) {
-	      weights[i] += c * error * inputs[i];
-	    }
+	    
 	    
 	    return false;
 	  }
@@ -63,14 +66,14 @@ public class Test {
 		
 		boolean found= false;
 		
-		for (int k = 0; k < 1000000; k++) {
+		for (int k = 0; k < 10000; k++) {
 //			System.out.println("iteration " + k);
 			
 			int size = 10;
 			
 			Test app = new Test(size);
 			
-			for (int i = 2; i < 100; i++) {
+			for (int i = 20; i < 100; i++) {
 				
 				int desired = i;
 				double[] inputs = new double[size];
@@ -81,15 +84,14 @@ public class Test {
 				found = app.train(inputs, desired);
 				
 				if(found){
-					System.out.println("found for " + i + " at iteration " + k);
-					continue;
+					
 				}
 				
 			}
 			
-			if(found){
-				continue;
-			}
+//			if(found){
+//				continue;
+//			}
 		}
 		
 		
